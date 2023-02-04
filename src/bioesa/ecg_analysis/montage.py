@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+#plot montage ogolnie!
 
 def channels_definition(s):
     
@@ -10,7 +11,7 @@ def channels_definition(s):
     return VLR, VPR, VLN
 
 
-def einthoven(s):
+def einthoven_montage(s):
     '''
     Odprowadzenie Einthovena
 
@@ -35,7 +36,7 @@ def plot_einthoven(V1, V2, V3):
     plt.suptitle('Einthoven')
     plt.show()
 
-def goldberg(s):
+def goldberg_montage(s):
 
     VLR, VPR, VLN = channels_definition(s)
 

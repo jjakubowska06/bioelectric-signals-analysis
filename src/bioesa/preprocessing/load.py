@@ -1,26 +1,41 @@
 import numpy as np
-
+from obci_readmanager.signal_processing.read_manager import ReadManager
 
 # loading a signal
-
 def load_raw(syg, type, F_samp=128.0):
+    '''
+    '''
     
     ds = np.DataSource(None)
     gfile = ds.open(syg, 'rb')
     syg = np.fromfile(gfile, dtype='<f')
-        
-    if (type=='ECG'):
-        syg *= 0.0715
-        syg = np.reshape(syg, (len(syg)//3, 3))
+    syg *= 0.0715
 
-    # if type=='EEG':
+    if type.upper()=='ECG':
+        n_channels = 3
+    # elif type.upper()=='EEG':
+        # n_channels = 
+    elif type.upper()=='EMG':
+        n_channels = 4
+    else:
+        raise Exception('This package was made for EEG, EMG and ECG signal analysis only')
 
-    # if type=='EMG':
+    syg = np.reshape(syg, (len(syg)//3, 3))
+    return syg, F_samp
 
-    T = syg.shape[0]/F_samp
 
-    dt = 1/F_samp
-    t = np.arange(0,T,dt)
-    f = np.arange(0.01,F_samp/2,0.01) 
+def load_Readmenager(info, signal, tags):
+    '''
+    '''
     
-    return syg, F_samp, T, t, f
+    mgr = ReadManager(info, signal, tags)
+
+    F_samp = float(mgr.get_param("sampling_frequency"))
+    #num_of_channels = int(mgr.get_param("number_of_channels"))
+    channels_names = mgr.get_param("channels_names")
+
+    syg = mgr.get_samples() * 0.0715
+
+    tags = mgr.get_tags()
+
+    return syg, F_samp, channels_names
