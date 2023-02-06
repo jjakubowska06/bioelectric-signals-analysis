@@ -16,11 +16,11 @@ def load_raw(syg, type, F_samp=128.0):
     # elif type.upper()=='EEG':
         # n_channels = 
     elif type.upper()=='EMG':
-        n_channels = 4
+        n_channels = 5
     else:
         raise Exception('This package was made for EEG, EMG and ECG signal analysis only')
 
-    syg = np.reshape(syg, (len(syg)//3, 3))
+    syg = np.reshape(syg, (len(syg)//n_channels, n_channels))
     return syg, F_samp
 
 

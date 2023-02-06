@@ -26,6 +26,7 @@ def einthoven_montage(s):
 
     return V1, V2, V3
 
+
 def plot_einthoven(V1, V2, V3):
 
     channels = [V1, V2, V3]
@@ -36,6 +37,7 @@ def plot_einthoven(V1, V2, V3):
     plt.suptitle('Einthoven')
     plt.show()
 
+
 def goldberg_montage(s):
 
     VLR, VPR, VLN = channels_definition(s)
@@ -45,6 +47,7 @@ def goldberg_montage(s):
     aVn = VLN - (VLR + VPR)/2
 
     return aVl, aVr, aVn
+
 
 def plot_goldberg(aVl, aVr, aVn):
     
