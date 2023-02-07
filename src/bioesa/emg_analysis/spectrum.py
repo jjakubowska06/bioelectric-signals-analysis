@@ -2,27 +2,39 @@ import scipy
 import matplotlib.pyplot as plt
 
 
-def spectrum(syg, F_samp): 
-  f, P = scipy.signal.welch(syg, fs=F_samp, window ='hann', nperseg=len(syg), noverlap=int(0.75*len(syg)), nfft=len(syg), scaling='density', axis=- 1, average='mean') 
+def find_spectrum(syg, F_samp):
 
-  return f, P
+    '''
+    Calculate spectrum in frequency domain using Welch's method
+    Input:
+      syg: signal from one channel
+      F_samp: sampling frequencies
+    Output:
+      f: array of frequencies
+      P: power values for freqs in array f
+    '''
 
-def plot_spectrum(syg, F_samp):
-    
-    f, P = spectrum(syg, F_samp)
-    # fig = plt.figure(figsize = (20,20), dpi = 100)
-   
-    # for i, signal in enumerate(load):
-    #     f, P = widmo(signal, F_samp)
-    #     P = P*1e-3
+    f, P = scipy.signal.welch(syg, fs=F_samp, window='hann', nperseg=len(syg),
+                              noverlap=int(0.75*len(syg)), nfft=len(syg),
+                              scaling='density', axis=-1, average='mean')
+    return f, P
+
+
+def plot_spectrum(f, P):
+
+    '''
+    Plot spectrum in frequencies domain
+    Input:
+      f: array of frequencies
+      P: power values for freqs in array f
+    '''
+
+    P = P*1e-3
 
     plt.plot(f, P)
-    # plt.xlim(10, 200)
-    # plt.ylim(bottom = 0)
-    plt.xlabel('częstotliwość [Hz]')
-    plt.ylabel('Moc [W]')
-    # plt.title('Widmo dla obciążenia: ' + str(x[i]))
-
-    # fig.subplots_adjust(hspace=.5)
+    plt.xlim(10, 400)
+    plt.ylim(bottom=0)
+    plt.xlabel('Frequency [Hz]')
+    plt.ylabel('Power [MW]')
+    plt.title('Power spectrum diagram')
     plt.show()
-
