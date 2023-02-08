@@ -33,12 +33,10 @@ def plot_spectrum(f, P, xlim=[1, 40]):
       P: power values for freqs in array f
     '''
 
-    P = P*1e-3
-
     plt.plot(f, P)
     plt.xlim(xlim)
     plt.ylim(bottom=0)
     plt.xlabel('Frequency [Hz]')
-    plt.ylabel('Power [MW]')
+    plt.ylabel('Power [W]')
     plt.title('Power spectrum diagram')
     plt.show()
