@@ -46,14 +46,14 @@ def filter_signal(syg, F_samp, butter_band=[1, 40], notch=50):
         with butterworth bandpass and notch filters
 
     '''
-
+    
     bB, aB = bandpass_filter(F_samp, butter_band)
     bN, aN = notch_filter(F_samp, notch)
 
     filtered_signal = np.zeros(np.shape(syg))
-
-    for ch_id in range(syg.shape[1]):
-        filtered_signal[:, ch_id] = filtfilt(aB, bB, syg[:, ch_id])
-        filtered_signal[:, ch_id] = filtfilt(aN, bN, filtered_signal[:, ch_id])
+    print(len(syg))
+    for ch_id in range(np.shape(syg)[0]):
+        filtered_signal[ch_id] = filtfilt(aB, bB, syg[ch_id])
+        filtered_signal[ch_id] = filtfilt(aN, bN, filtered_signal[ch_id])
 
     return filtered_signal

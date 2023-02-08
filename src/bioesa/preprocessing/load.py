@@ -20,7 +20,7 @@ def load_raw(syg, F_samp=128., n_channels=3):
     syg = np.fromfile(gfile, dtype='<f')
     syg = np.reshape(syg, (len(syg)//n_channels, n_channels)) * 0.0715
 
-    return syg, F_samp
+    return syg.transpose(), F_samp
 
 
 def load_signal(signal, info=None, tags=None, F_samp=None, n_channel=None):
@@ -45,7 +45,7 @@ def load_signal(signal, info=None, tags=None, F_samp=None, n_channel=None):
     # load raw signal without tags and metadata
     if (not info and not tags) and (F_samp and n_channel):
         if not (isinstance(F_samp, float) or isinstance(n_channel, int)):
-            raise TypeError
+            raise TypeError('F_samp: float, n_channel: int')
         else:
             return load_raw(signal, F_samp=F_samp, n_channels=n_channel)
 
@@ -62,7 +62,7 @@ def load_signal(signal, info=None, tags=None, F_samp=None, n_channel=None):
         syg = mgr.get_samples() * 0.0715
         tags = mgr.get_tags()
 
-        return syg, F_samp, channels_names
+        return syg, F_samp, channels_names, tags
     else:
         raise Exception('To load a signal, tags with metadata OR signal \
                         type with F_samp are required')

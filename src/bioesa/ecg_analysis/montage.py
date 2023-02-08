@@ -12,9 +12,9 @@ def channels_definition(s):
                         to ECG montage system
     '''
 
-    VLR = s[:, 0]
-    VPR = s[:, 1]
-    VLN = s[:, 2]
+    VLR = s[0, :]
+    VPR = s[1, :]
+    VLN = s[2, :]
 
     return VLR, VPR, VLN
 
